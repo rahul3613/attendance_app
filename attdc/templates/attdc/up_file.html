@@ -1,0 +1,12 @@
+<h2> Upload excel file <br> with students' details... </h2>
+
+<h3>Format of Excel file: </h3>
+<p></p><b>S. No.  |  Name  | Roll. No. </b></p>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="file" name="myfile">
+    <button type="submit">Upload</button>
+  </form>
+
+  <a href="{% url 'index' %}"><h4><font color="orange"> Home Page</font></h4></a>

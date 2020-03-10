@@ -1,0 +1,10 @@
+
+<h2> Mark your attandence.. </h2>
+
+<p>Dear <b>{{ student.name }}</b>({{ student.rol_numb }}),<br>
+Click on the button to mark your attandance for today. </p>
+
+<form action="{% url 'attdc:mark1' %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Present">
+</form>

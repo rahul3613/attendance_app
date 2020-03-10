@@ -1,0 +1,25 @@
+<a href="{% url 'index' %}"><font color="orange"> Home Page</font></a>
+
+<h2>NISER, Bbsr</h2>
+<h4>Subject : {{ batch.subject }} </h4>
+<h4>Subject Code : {{ batch.s_code }} </h4>
+<h4>Semester : {{ batch.sem }} </h4>
+<h4>Instructor : {{ batch.instructor }} </h4>
+<h4>Expected total class : {{ batch.e_tot_c }} </h4>
+
+<table>
+    <tr>
+      <th>Serial No.</th>
+      <th>Roll No.</th>
+      <th>Name</th>
+      <th>Attandence</th>
+    </tr>
+    {% for student in batch.student_set.all %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ student.rol_numb }}</td>
+            <td>{{ student.name }}</td>
+            <td><b>{{ student.tot_attdc }}</b></td>
+        </tr>
+    {% endfor %}
+  </table>

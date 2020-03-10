@@ -1,0 +1,7 @@
+<h2> Mark your attandence.. </h2>
+<form action="{% url 'attdc:mark' %}" method="post">
+    {% csrf_token %}
+    <p>Enter your Roll Number </p>
+    <input type="number" name="r_numb">
+    <input type="submit" value="Send">
+</form>

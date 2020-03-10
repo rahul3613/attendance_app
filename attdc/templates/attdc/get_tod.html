@@ -1,0 +1,56 @@
+<a href="{% url 'index' %}"><font color="orange"> Home Page</font></a>
+
+<h2>NISER, Bbsr</h2>
+<h4>Subject : {{ batch.subject }} </h4>
+<h4>Subject Code : {{ batch.s_code }} </h4>
+<h4>Semester : {{ batch.sem }} </h4>
+<h4>Instructor : {{ batch.instructor }} </h4>
+<h4>Expected total class : {{ batch.e_tot_c }} </h4>
+<br>
+
+
+<font color="red"> <h3> ABSENT : </h3></font>
+<table>
+    <tr>
+      <th>Serial No.</th>
+      <th>Roll No.</th>
+      <th>Name</th>
+      <th>Attandence</th>
+    </tr>
+    {% for student in batch.student_set.all %}
+        {% if student.accept %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ student.rol_numb }}</td>
+                <td>{{ student.name }}</td>
+                <td><b>{{ student.tot_attdc }}</b></td>
+            </tr>
+        {% else %}
+            
+        {% endif %}
+    {% endfor %}
+</table>
+<br>
+
+
+<font color="green"> <h3> PRESENT : </h3></font>
+<table>
+    <tr>
+      <th>Serial No.</th>
+      <th>Roll No.</th>
+      <th>Name</th>
+      <th>Attandence</th>
+    </tr>
+    {% for student in batch.student_set.all %}
+        {% if student.accept %}
+            
+        {% else %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ student.rol_numb }}</td>
+                <td>{{ student.name }}</td>
+                <td><b>{{ student.tot_attdc }}</b></td>
+            </tr>
+        {% endif %}
+    {% endfor %}
+</table>
