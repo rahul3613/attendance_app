@@ -22,10 +22,10 @@ class Student(models.Model):
     name = models.CharField(max_length = 100)
     tot_attdc = models.IntegerField(default=0)
     mac = models.CharField(max_length = 50, default = 'xyz')
-    tod_date = models.DateTimeField(default = datetime.datetime.now())
+    tod_date = models.DateTimeField(default = (timezone.now()-datetime.timedelta(hours = 6)))
     
     def accept(self):
-        time = self.tod_date + datetime.timedelta(minutes = 5)
+        time = self.tod_date + datetime.timedelta(hours = 6)
         now = timezone.now()
         return  time <= now
 
@@ -42,8 +42,10 @@ class S_code(models.Model):
     def __str__(self):
         return self.name
 
-class Urls(models.Model): 
-    link = models.URLField(max_length = 200)
+class PassWord(models.Model): 
+    passw = models.CharField(max_length = 30)
+    def __str__(self):
+        return self.passw
 
 '''class Ip_handle(models.Model, c_ip):
     ip = models.CharField(max_length = 50, default = '127.0.0.1')

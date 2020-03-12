@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
-from .models import Instructor, Batch, Student, Atdc, S_code
+from .models import Instructor, Batch, Student, Atdc, S_code, PassWord
 from django.utils import timezone
 from uuid import getnode as get_mac
 from getmac import get_mac_address
@@ -25,9 +25,15 @@ def get_batch1(request):
     return render(request, 'attdc/get_batch1.html', {'instructor': instructor})
 
 def get(request):
-    instructor = get_object_or_404(Instructor, id=1)
-    batch = instructor.batch_set.get(id=request.POST['batch'])
-    return render(request, 'attdc/get.html', {'batch': batch})
+    try:
+        check = PassWord.objects.get(passw = request.POST['pwd'])
+    except (KeyError, PassWord.DoesNotExist):
+        return render(request, 'attdc/unath.html',)
+    else:
+        instructor = get_object_or_404(Instructor, id=1)
+        batch = instructor.batch_set.get(id=request.POST['batch'])
+        return render(request, 'attdc/get.html', {'batch': batch})
+
 
 
 def get_batch2(request):
@@ -35,9 +41,15 @@ def get_batch2(request):
     return render(request, 'attdc/get_batch2.html', {'instructor': instructor})
 
 def today(request):
-    instructor = get_object_or_404(Instructor, id=1)
-    batch = instructor.batch_set.get(id=request.POST['batch'])
-    return render(request, 'attdc/get_tod.html', {'batch': batch})
+    try:
+        check = PassWord.objects.get(passw = request.POST['pwd'])
+    except (KeyError, PassWord.DoesNotExist):
+        return render(request, 'attdc/unath.html',)
+    else:
+        instructor = get_object_or_404(Instructor, id=1)
+        batch = instructor.batch_set.get(id=request.POST['batch'])
+        return render(request, 'attdc/get_tod.html', {'batch': batch})
+    
 
 
 def con_attdc(request, student_id):
@@ -96,21 +108,26 @@ def get_batch(request):
     return render(request, 'attdc/get_batch.html', {'instructor': instructor})
 
 def to_up(request):
-    if S_code.objects.all():
-        pass
+    try:
+        check = PassWord.objects.get(passw = request.POST['pwd'])
+    except (KeyError, PassWord.DoesNotExist):
+        return render(request, 'attdc/unath.html',)
     else:
-        batch1 = S_code(code = 'M101')
-        batch1.save()
+        if S_code.objects.all():
+            pass
+        else:
+            batch1 = S_code(code = 'M101')
+            batch1.save()
 
-    instructor = get_object_or_404(Instructor, id=1)
-    batch2 = instructor.batch_set.get(id=request.POST['batch'])
-    #batch = get_object_or_404(Batch, pk = request.POST.get('batch'))
+        instructor = get_object_or_404(Instructor, id=1)
+        batch2 = instructor.batch_set.get(id=request.POST['batch'])
+        #batch = get_object_or_404(Batch, pk = request.POST.get('batch'))
     
-    temp_code = get_object_or_404(S_code, id = 1)
-    temp_code.code = batch2.s_code
-    temp_code.save()
+        temp_code = get_object_or_404(S_code, id = 1)
+        temp_code.code = batch2.s_code
+        temp_code.save()
 
-    return HttpResponseRedirect(reverse('attdc:up_file',))
+        return HttpResponseRedirect(reverse('attdc:up_file',))
 
 
 
