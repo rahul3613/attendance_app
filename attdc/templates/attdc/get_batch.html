@@ -1,11 +1,17 @@
-<a href="{% url 'index' %}"><font color="orange"> Home Page</font></a>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <a href="{% url 'index' %}"><font color="orange"> Home Page</font></a>
+    <h3> Choose the course to which <br> students are to be added... </h3>
+    
+    <form action="{% url 'attdc:to_up' %}" method="post">
+        {% csrf_token %}
+        {% for batch in instructor.batch_set.all %}
+            <input type="radio" name="batch" id="batch{{ forloop.counter }}" value="{{ batch.id }}">
+            <label for="batch{{ forloop.counter }}">{{ batch.s_code }}</label><br>
+        {% endfor %}<br>
 
-<h3> Choose the course to which <br> students are to be added... </h3>
-<form action="{% url 'attdc:to_up' %}" method="post">
-    {% csrf_token %}
-    {% for batch in instructor.batch_set.all %}
-    <input type="radio" name="batch" id="batch{{ forloop.counter }}" value="{{ batch.id }}">
-    <label for="batch{{ forloop.counter }}">{{ batch.s_code }}</label><br>
-{% endfor %}
-    <input type="submit" value="Select">
-</form>
+        <p>Enter the PassWord: </p>
+        <input type = "text" name = "pwd">
+        <input type="submit" value="Submit">
+    </form>
+
+    

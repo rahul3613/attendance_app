@@ -1,4 +1,6 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <a href="{% url 'index' %}"><font color="orange"> Home Page</font></a>
+<p>Press Ctrl+P to save this page in PDF format.</p>
 
 <h2>NISER, Bbsr</h2>
 <h4>Subject : {{ batch.subject }} </h4>
@@ -12,7 +14,7 @@
       <th>Serial No.</th>
       <th>Roll No.</th>
       <th>Name</th>
-      <th>Attandence</th>
+      <th>Attendance</th>
     </tr>
     {% for student in batch.student_set.all %}
         <tr>

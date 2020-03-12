@@ -1,4 +1,5 @@
-<h2> Mark your attandence.. </h2>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<h2> Mark your attendance.. </h2>
 <form action="{% url 'attdc:mark' %}" method="post">
     {% csrf_token %}
     <p>Enter your Roll Number </p>
